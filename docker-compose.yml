@@ -1,0 +1,46 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7.4
+    container_name: webos-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=webos
+      - MYSQL_DATABASE=webos  # 添加MYSQL_DATABASE环境变量
+      - MYSQL_LOG_CONSOLE=true
+    restart: always
+    volumes:
+      - ${PWD}/db:/var/lib/mysql
+    networks:
+      - webos-net
+
+  onlyoffice:
+    image: xiaohuochaia/onlyoffice:7.3.3
+    container_name: onlyoffice
+    privileged: true
+    restart: always
+    ports:
+      - '5004:80'
+    volumes:
+      - '${PWD}/onlyoffice/postgresql:/var/lib/postgresql'
+      - '${PWD}/onlyoffice/Data:/var/www/onlyoffice/Data'
+      - '${PWD}/onlyoffice/sdkjs-plugins:/var/www/onlyoffice/documentserver/sdkjs-plugins'
+      - '${PWD}/onlyoffice/onlyoffice:/var/lib/onlyoffice'
+    environment:
+      - JWT_ENABLED=false
+    networks:
+      - webos-net
+  webos:
+    container_name: webos
+    volumes:
+      - '${PWD}/data:/webos/api/rootPath'
+      - '${PWD}/apps:/webos/web/apps'
+    restart: always
+    image: fs185085781/webos
+    ports:
+      - '8088:8088'
+    networks:
+      - webos-net
+
+networks:
+  webos-net:
+    driver: bridge
