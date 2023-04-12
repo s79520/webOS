@@ -1,5 +1,5 @@
 #生成的新镜像以centos镜像为基础
-FROM centos
+FROM a79520/centos79
 MAINTAINER by zzb (zhangzhengbo@hotmail.com)
 #升级系统
 RUN yum -y update
