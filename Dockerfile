@@ -3,8 +3,5 @@ FROM      a79520/centos79:latest
 MAINTAINER a79520,MTkej <1179697713@qq.com>
 #升级系统
 RUN yum -y update
-
-#安装java
-RUN yum install java-1.8.0-openjdk* -y
-#安装wget
-RUN yum install wget -y
+#开放窗口的22端口
+EXPOSE 8088
