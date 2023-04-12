@@ -1,6 +1,6 @@
 #生成的新镜像以centos镜像为基础
-FROM a79520/centos79
-MAINTAINER by zzb (zhangzhengbo@hotmail.com)
+FROM      daocloud.io/library/centos:latest
+MAINTAINER dockerxman,xiongjun <fenyunxx@163.com>
 #升级系统
 RUN yum -y update
 #安装openssh-server
